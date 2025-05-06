@@ -1,0 +1,46 @@
+# Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
+
+client_id = "496670cd3bb72f3ca0294d4578f9ee3f"
+application_url = "https://adminapi-brandswap-stg.azurewebsites.net/shopify/handshake"
+embedded = true
+name = "BrandSwap"
+handle = "brandswap"
+
+[build]
+include_config_on_deploy = true
+automatically_update_urls_on_dev = false
+
+[webhooks]
+api_version = "2025-04"
+
+  [[webhooks.subscriptions]]
+  topics = [ "app/uninstalled" ]
+  uri = "/webhooks/app/uninstalled"
+
+  [[webhooks.subscriptions]]
+  topics = [ "app/scopes_update" ]
+  uri = "/webhooks/app/scopes_update"
+
+  [[webhooks.subscriptions]]
+  compliance_topics = [ "customers/data_request" ]
+  uri = "https://adminapi-brandswap-stg.azurewebsites.net/shopify/request/data"
+
+  [[webhooks.subscriptions]]
+  compliance_topics = [ "customers/redact" ]
+  uri = "https://adminapi-brandswap-stg.azurewebsites.net/shopify/request/data/erasure"
+
+  [[webhooks.subscriptions]]
+  compliance_topics = [ "shop/redact" ]
+  uri = "https://adminapi-brandswap-stg.azurewebsites.net/shopify/request/shop/erasure"
+
+[access_scopes]
+# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
+scopes = "read_content, write_script_tags, read_script_tags"
+
+[auth]
+redirect_urls = [
+  "https://adminapi-brandswap-stg.azurewebsites.net/shopify/authresult"
+]
+
+[pos]
+embedded = true
